@@ -45,6 +45,8 @@ export default {
     showEditItemForm (productId) {
       console.log('SHOW EDIT PRODUCT FORM @ CARD')
       console.log(productId)
+      // this.$store.dispatch('showItemEditForm', productId)
+      this.$router.push({ name: 'EditItemForm', params: { id: productId } })
     },
 
     dropItem (productId) {
@@ -81,6 +83,19 @@ export default {
 <style scoped>
 .card {
   width: 100%;
-  border: 0.5px dashed black;
+  border: 0.5px solid black;
+  background-color: brown;
+  padding: 2vh;
+  margin: 2vh;
+}
+
+.mb-3 {
+  background-color: wheat;
+  padding: 2vh;
+  margin: 2vh;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
 }
 </style>

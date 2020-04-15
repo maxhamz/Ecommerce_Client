@@ -1,9 +1,12 @@
 <template>
   <div class="item-details" v-if="details.name">
       <h3>DRUG DETAILS</h3>
-      <p>TRADE NAME: {{details.name}}</p>
-      <p>ACTIVE INGREDIENTS: {{ details.description }}</p>
-      <p>DRUG CATEGORY: <b>{{details.category}}</b></p>
+      <h5>TRADE NAME</h5>
+      <p>{{details.name}}</p>
+      <h5>ACTIVE INGREDIENTS</h5>
+      <p>{{ details.description }}</p>
+      <h5>DRUG CATEGORY</h5>
+      <h4><b>{{details.category}}</b></h4>
   </div>
 </template>
 
@@ -20,27 +23,14 @@ export default {
   methods: {},
   computed: {
     details () {
+      console.log("WHAT'S PRODUCT DETAILS?")
+      console.log(this.$store.state.product)
       return this.$store.state.product
     }
   },
   created () {
     const id = this.$route.params.id
     this.$store.dispatch('getOneItem', id)
-      .then(response => {
-        console.log('SUCCESS FETCHING ONE PRODUCT')
-        console.log(response.data)
-        this.$store.commit('SET_PRODUCT', response.data)
-      })
-      .catch(err => {
-        console.log(err.response)
-        const arr = err.response.data.errors
-        const code = err.response.status
-        const type = err.response.statusText
-        const ct = code + ' ' + type
-        arr.forEach(el => {
-          this.$toasted.error(`${ct}: ${el}`)
-        })
-      })
   }
 }
 </script>

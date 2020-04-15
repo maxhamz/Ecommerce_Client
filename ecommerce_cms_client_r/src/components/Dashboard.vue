@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard">
-    <h1>test</h1>
     <Card
         v-for="product in products"
         :key="product.id"
@@ -32,10 +31,11 @@ export default {
     this.$store.dispatch('fetchProducts')
       .then(response => {
         console.log('SUCCESS FETCHING PRODUCTS')
-        console.log(response.data.data)
+        console.log(response)
         this.$store.commit('SET_PRODUCTS', response.data.data)
         socket.emit('getProducts', response.data.data)
         socket.on('getProducts2', (payload) => {
+          this.$store.commit('SET_PRODUCTS', payload)
           this.$toasted.success('FETCHED ALL PRODUCTS')
         })
       })

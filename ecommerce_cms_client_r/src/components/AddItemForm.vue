@@ -5,22 +5,22 @@
     <form id="add-item-form">
       Name:
       <input type="text" required id="add-item-name" v-model="addParams.name" />
-      <br />Description:
+      <br /><br/>Description:
       <input type="text" required id="add-item-desc" v-model="addParams.description" />
-      <br />Category:
+      <br /><br/>Category:
       <select id="add-item-category" v-model="addParams.category">
         <option value="otc">OTC</option>
         <option value="otc_limited">Limited OTC</option>
         <option value="prescription">Prescription Only</option>
         <option value="herbal">Herbal, Supplements</option>
       </select>
-      <br />Image URL:
+      <br /><br/>Image URL:
       <input type="text" required id="add-item-image" v-model="addParams.image_url" />
-      <br />Stock:
+      <br /><br/>Stock:
       <input type="text" required id="add-item-stock" v-model="addParams.stock" />
-      <br />Price:
+      <br /><br/>Price:
       <input type="text" required id="add-item-price" v-model="addParams.price" />
-      <br />
+      <br /><br/>
       <b-button variant="primary" form="add-item-form" @click.prevent="addItem">Add Item</b-button>
     </form>
   </div>
@@ -78,6 +78,7 @@ export default {
       this.$toasted.success(payload.name + ' ADDED TO INVENTORY', {
         position: 'bottom-center'
       })
+      this.$store.dispatch('fetchProducts')
       console.log(payload.name + ' ADDED TO INVENTORY')
     })
   }
@@ -87,9 +88,14 @@ export default {
 <style scoped>
 #add-item-form {
   padding: 2vh;
-  margin: 2vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  margin-left: 25%;
   justify-content: center;
   align-content: center;
   align-items: center;
+  justify-items: center;
+  border: 1px solid black;
+  width: 50%;
 }
 </style>

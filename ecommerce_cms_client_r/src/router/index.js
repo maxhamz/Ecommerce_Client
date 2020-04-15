@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Landing from '../views/Landing.vue'
 import Home from '../views/Home.vue'
 import AddItemForm from '../components/AddItemForm.vue'
+import EditItemForm from '../components/EditItemForm.vue'
 import Dashboard from '../components/Dashboard.vue'
 import Detail from '../components/Detail.vue'
 Vue.use(VueRouter)
@@ -22,17 +23,26 @@ const routes = [
       {
         path: '/addItemForm',
         component: AddItemForm,
-        name: 'AddItemForm'
+        name: 'AddItemForm',
+        meta: { requiresAuth: true }
       },
       {
         path: '/dashboard',
         component: Dashboard,
-        name: 'Dashboard'
+        name: 'Dashboard',
+        meta: { requiresAuth: true }
       },
       {
         path: '/detail/:id',
         component: Detail,
-        name: 'Detail'
+        name: 'Detail',
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/editItemForm/:id',
+        component: EditItemForm,
+        name: 'EditItemForm',
+        meta: { requiresAuth: true }
       }
     ]
   }
