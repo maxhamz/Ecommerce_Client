@@ -10,11 +10,10 @@
     >
       <b-card-text>
         <p>
-          <router-link
-                :to="{ name: 'Detail', params: { id: item.id } }">
-          <b>
-            <h5>{{ item.name }}</h5>
-          </b>
+          <router-link :to="{ name: 'Detail', params: { id: item.id } }">
+            <b>
+              <h5>{{ item.name }}</h5>
+            </b>
           </router-link>
         </p>
         <p>IDR {{ item.price }}</p>
@@ -58,6 +57,10 @@ export default {
           console.log('DELETE PRODUCT SUCCESS')
           console.log(response.data.message)
           socket.emit('product_deleted', response.data.message)
+          socket.on('deleted_product', payload => {
+            this.$toasted.success(payload)
+            this.$store.dispatch('fetchProducts')
+          })
         })
         .catch(err => {
           console.log(err.response)
@@ -69,13 +72,16 @@ export default {
             this.$toasted.error(`${ct}: ${el}`)
           })
         })
+        .finally(_ => {
+          this.$store.commit('SET_LOADING', false)
+        })
     }
   },
   created () {
-    socket.on('deleted_product', payload => {
-      this.$toasted.success(payload)
-      this.$store.dispatch('fetchProducts')
-    })
+    // socket.on('deleted_product', payload => {
+    //   this.$toasted.success(payload)
+    //   this.$store.dispatch('fetchProducts')
+    // })
   }
 }
 </script>

@@ -10,7 +10,6 @@
 
 <script>
 import Card from './Card'
-import socket from '../config/socket'
 export default {
   name: 'Dashboard',
   components: {
@@ -32,29 +31,6 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchProducts')
-      .then(response => {
-        console.log('SUCCESS FETCHING PRODUCTS')
-        console.log(response)
-        this.$store.commit('SET_PRODUCTS', response.data.data)
-        socket.emit('getProducts', response.data.data)
-        socket.on('getProducts2', (payload) => {
-          this.$store.commit('SET_PRODUCTS', payload)
-          this.$toasted.success('FETCHED ALL PRODUCTS')
-        })
-      })
-      .catch(err => {
-        console.log(err.response)
-        const arr = err.response.data.errors
-        const code = err.response.status
-        const type = err.response.statusText
-        const ct = code + ' ' + type
-        arr.forEach(el => {
-          this.$toasted.error(`${ct}: ${el}`)
-        })
-      })
-      .finally(_ => {
-        this.$store.commit('SET_LOADING', false)
-      })
   }
 }
 </script>

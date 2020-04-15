@@ -5,22 +5,28 @@
     <form id="add-item-form">
       Name:
       <input type="text" required id="add-item-name" v-model="addParams.name" />
-      <br /><br/>Description:
+      <br />
+      <br />Description:
       <input type="text" required id="add-item-desc" v-model="addParams.description" />
-      <br /><br/>Category:
+      <br />
+      <br />Category:
       <select id="add-item-category" v-model="addParams.category">
         <option value="otc">OTC</option>
         <option value="otc_limited">Limited OTC</option>
         <option value="prescription">Prescription Only</option>
         <option value="herbal">Herbal, Supplements</option>
       </select>
-      <br /><br/>Image URL:
+      <br />
+      <br />Image URL:
       <input type="text" required id="add-item-image" v-model="addParams.image_url" />
-      <br /><br/>Stock:
+      <br />
+      <br />Stock:
       <input type="text" required id="add-item-stock" v-model="addParams.stock" />
-      <br /><br/>Price:
+      <br />
+      <br />Price:
       <input type="text" required id="add-item-price" v-model="addParams.price" />
-      <br /><br/>
+      <br />
+      <br />
       <b-button variant="primary" form="add-item-form" @click.prevent="addItem">Add Item</b-button>
     </form>
   </div>
@@ -59,6 +65,13 @@ export default {
           console.log(response.data)
           this.product = response.data
           socket.emit('new_product', response.data)
+          socket.on('added_product', payload => {
+            this.$toasted.success(payload.name + ' ADDED TO INVENTORY', {
+              position: 'bottom-center'
+            })
+            this.$store.dispatch('fetchProducts')
+            console.log(payload.name + ' ADDED TO INVENTORY')
+          })
           this.$router.push({ path: '/dashboard' })
         })
         .catch(err => {
@@ -74,13 +87,13 @@ export default {
     }
   },
   created () {
-    socket.on('added_product', (payload) => {
-      this.$toasted.success(payload.name + ' ADDED TO INVENTORY', {
-        position: 'bottom-center'
-      })
-      this.$store.dispatch('fetchProducts')
-      console.log(payload.name + ' ADDED TO INVENTORY')
-    })
+    // socket.on('added_product', (payload) => {
+    //   this.$toasted.success(payload.name + ' ADDED TO INVENTORY', {
+    //     position: 'bottom-center'
+    //   })
+    //   this.$store.dispatch('fetchProducts')
+    //   console.log(payload.name + ' ADDED TO INVENTORY')
+    // })
   }
 }
 </script>

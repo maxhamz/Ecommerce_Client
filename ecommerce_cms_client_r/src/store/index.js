@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../config/api'
+import socket from '../config/socket'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -59,13 +60,36 @@ export default new Vuex.Store({
     fetchProducts (context, payload) {
       console.log('FETCH ITEMS @ STORE')
       context.commit('SET_LOADING', true)
-      return axios({
+      axios({
         method: 'get',
         url: '/products',
         headers: {
           access_token: localStorage.access_token
         }
       })
+        .then(response => {
+          console.log('SUCCESS FETCHING PRODUCTS')
+          console.log(response)
+          context.commit('SET_PRODUCTS', response.data.data)
+          socket.emit('getProducts', response.data.data)
+          socket.on('getProducts2', (payload) => {
+            context.commit('SET_PRODUCTS', payload)
+            // Vue.toasted.success('FETCHED ALL PRODUCTS')
+          })
+        })
+        .catch(err => {
+          console.log(err.response)
+          const arr = err.response.data.errors
+          const code = err.response.status
+          const type = err.response.statusText
+          const ct = code + ' ' + type
+          arr.forEach(el => {
+            Vue.toasted.error(`${ct}: ${el}`)
+          })
+        })
+        .finally(_ => {
+          context.commit('SET_LOADING', false)
+        })
     },
 
     getOneItem (context, payload) {
@@ -90,7 +114,7 @@ export default new Vuex.Store({
           const type = err.response.statusText
           const ct = code + ' ' + type
           arr.forEach(el => {
-            this.$toasted.error(`${ct}: ${el}`)
+            Vue.toasted.error(`${ct}: ${el}`)
           })
         })
         .finally(_ => {
@@ -154,6 +178,5 @@ export default new Vuex.Store({
     }
 
   },
-  modules: {
-  }
+  modules: {}
 })
