@@ -1,4 +1,5 @@
 # ecommerce_cms_client_r
+https://ecommerce-cms-r.firebaseapp.com
 
 ## Project setup
 ```
