@@ -1,5 +1,5 @@
 <template>
-  <div class="item-details" v-if="details.name">
+  <div class="item-details" v-if="details.name && !isLoading">
       <h3>DRUG DETAILS</h3>
       <h5>TRADE NAME</h5>
       <p>{{details.name}}</p>
@@ -26,6 +26,9 @@ export default {
       console.log("WHAT'S PRODUCT DETAILS?")
       console.log(this.$store.state.product)
       return this.$store.state.product
+    },
+    isLoading () {
+      return this.$store.state.isLoading
     }
   },
   created () {

@@ -1,5 +1,5 @@
 <template>
-  <div id="pg-edit-item">
+  <div id="pg-edit-item" v-if="!isLoading">
     <!-- <Navbar /> -->
     <h3>Edit Drug Information</h3>
     <form id="edit-item-form">
@@ -68,6 +68,9 @@ export default {
       console.log('MAKING SURE EDIT PARAMS')
       console.log(this.$store.state.product)
       return this.$store.state.product
+    },
+    isLoading () {
+      return this.$store.state.isLoading
     }
   },
   created () {

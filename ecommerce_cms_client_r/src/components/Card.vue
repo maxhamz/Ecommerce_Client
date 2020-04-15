@@ -58,7 +58,6 @@ export default {
           console.log('DELETE PRODUCT SUCCESS')
           console.log(response.data.message)
           socket.emit('product_deleted', response.data.message)
-          this.$store.dispatch('fetchProducts')
         })
         .catch(err => {
           console.log(err.response)
@@ -75,6 +74,7 @@ export default {
   created () {
     socket.on('deleted_product', payload => {
       this.$toasted.success(payload)
+      this.$store.dispatch('fetchProducts')
     })
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <div class="dashboard" v-if="!isLoading">
     <Card
         v-for="product in products"
         :key="product.id"
@@ -25,6 +25,9 @@ export default {
   computed: {
     products () {
       return this.$store.state.products
+    },
+    isLoading () {
+      return this.$store.state.isLoading
     }
   },
   created () {
@@ -48,6 +51,9 @@ export default {
         arr.forEach(el => {
           this.$toasted.error(`${ct}: ${el}`)
         })
+      })
+      .finally(_ => {
+        this.$store.commit('SET_LOADING', false)
       })
   }
 }
