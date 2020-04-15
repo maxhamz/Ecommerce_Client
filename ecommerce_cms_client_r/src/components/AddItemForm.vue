@@ -1,6 +1,6 @@
 <template>
   <div id="pg-add-item">
-    <!-- <Navbar /> -->
+    <Navbar />
     <h3>Add New Item</h3>
     <form id="add-item-form">
       Name:
@@ -33,12 +33,12 @@
 </template>
 
 <script>
-// import Navbar from './Navbar'
+import Navbar from './Navbar'
 import socket from '../config/socket'
 export default {
   name: 'AddItemForm',
   components: {
-    // Navbar
+    Navbar
   },
   props: [],
   data () {

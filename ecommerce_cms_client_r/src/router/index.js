@@ -21,12 +21,6 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       {
-        path: '/addItemForm',
-        component: AddItemForm,
-        name: 'AddItemForm',
-        meta: { requiresAuth: true }
-      },
-      {
         path: '/dashboard',
         component: Dashboard,
         name: 'Dashboard',
@@ -37,14 +31,20 @@ const routes = [
         component: Detail,
         name: 'Detail',
         meta: { requiresAuth: true }
-      },
-      {
-        path: '/editItemForm/:id',
-        component: EditItemForm,
-        name: 'EditItemForm',
-        meta: { requiresAuth: true }
       }
     ]
+  },
+  {
+    path: '/addItemForm',
+    component: AddItemForm,
+    name: 'AddItemForm',
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/editItemForm/:id',
+    component: EditItemForm,
+    name: 'EditItemForm',
+    meta: { requiresAuth: true }
   }
 ]
 

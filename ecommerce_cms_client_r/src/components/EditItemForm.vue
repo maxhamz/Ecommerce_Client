@@ -1,6 +1,6 @@
 <template>
   <div id="pg-edit-item" v-if="!isLoading">
-    <!-- <Navbar /> -->
+    <Navbar />
     <h3>Edit Drug Information</h3>
     <form id="edit-item-form">
       Name:
@@ -27,12 +27,12 @@
 </template>
 
 <script>
-// import Navbar from './Navbar'
+import Navbar from './Navbar'
 import socket from '../config/socket'
 export default {
   name: 'EditItemForm',
   components: {
-    // Navbar
+    Navbar
   },
   props: [],
   data () {
