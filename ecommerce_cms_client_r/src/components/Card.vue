@@ -21,7 +21,7 @@
         <p>
           <b-button-group>
             <b-button variant="info" @click.prevent="showEditItemForm(item.id)">Update</b-button>
-            <b-button variant="danger" @click.prevent="dropItem(item.id)">Delete</b-button>
+            <b-button variant="danger" @click.prevent="dropItem(item.id, item.name)">Delete</b-button>
           </b-button-group>
         </p>
       </b-card-text>
@@ -48,7 +48,7 @@ export default {
       this.$router.push({ name: 'EditItemForm', params: { id: productId } })
     },
 
-    dropItem (productId) {
+    dropItem (productId, productName) {
       console.log('DELETE ITEM @ CARD')
       console.log(productId)
       this.$store
@@ -58,7 +58,7 @@ export default {
           console.log(response.data.message)
           socket.emit('product_deleted', response.data.message)
           socket.on('deleted_product', payload => {
-            this.$toasted.success(payload)
+            this.$toasted.show(payload)
             this.$store.dispatch('fetchProducts')
           })
         })

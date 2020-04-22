@@ -79,7 +79,7 @@ export default {
     console.log(id)
     this.$store.dispatch('showItemEditForm', id)
     socket.on('updated_product', (payload) => {
-      this.$toasted.success(payload.name + ' HAS BEEDN EDITED', {
+      this.$toasted.success(payload.name + ' HAS BEEN UPDATED', {
         position: 'bottom-center'
       })
       this.$store.dispatch('fetchProducts')
