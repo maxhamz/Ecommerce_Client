@@ -18,7 +18,8 @@
       </select>
       <br />
       <br />Image URL:
-      <input type="text" required id="add-item-image" v-model="addParams.image_url" />
+      <!-- <input type="text" required id="add-item-image" v-model="addParams.image_url" /> -->
+      <input type="file" required id="add-item-image" multiple/>
       <br />
       <br />Stock:
       <input type="text" required id="add-item-stock" v-model="addParams.stock" />
@@ -35,6 +36,7 @@
 <script>
 import Navbar from './Navbar'
 import socket from '../config/socket'
+// import $ from 'jquery'
 export default {
   name: 'AddItemForm',
   components: {
@@ -48,7 +50,7 @@ export default {
         name: '',
         description: '',
         category: '',
-        image_url: '',
+        imageSrc: null,
         stock: 0,
         price: 0
       }
@@ -58,6 +60,9 @@ export default {
     addItem () {
       console.log('ADD ITEM @ FORMPAGE')
       console.log(this.addParams)
+      const inputFile = document.getElementById('add-item-image').files[0]
+      this.addParams.imageSrc = inputFile
+      console.log(inputFile)
       this.$store
         .dispatch('addItem', this.addParams)
         .then(response => {

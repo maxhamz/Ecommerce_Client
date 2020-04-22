@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../config/api'
 import socket from '../config/socket'
+import FormData from 'form-data'
+// import { InputGroupPlugin } from 'bootstrap-vue'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -125,19 +127,24 @@ export default new Vuex.Store({
     addItem (context, payload) {
       console.log('ADD ITEM @ STORE')
       console.log(payload)
+
+      // PARSTING TO FORM DATA FIRST
+      const inputData = new FormData()
+      inputData.set('name', payload.name)
+      inputData.set('description', payload.description)
+      inputData.set('category', payload.category)
+      inputData.set('stock', Number(payload.stock))
+      inputData.set('price', Number(payload.price))
+      inputData.append('imageSrc', payload.imageSrc)
+      // END PARSING
+
       return axios({
         method: 'POST',
         url: '/products',
         headers: {
           access_token: localStorage.access_token
         },
-        data: {
-          name: payload.name,
-          description: payload.description,
-          category: payload.category,
-          stock: Number(payload.stock),
-          price: Number(payload.price)
-        }
+        data: inputData
       })
     },
 
