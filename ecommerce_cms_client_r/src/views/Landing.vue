@@ -7,7 +7,7 @@
 
     <!-- JUMBOTRON START -->
     <div class="pg-jumbotron">
-      <b-jumbotron header="Pharmacy E-Commerce CMS" lead="Welcome Back, Admin!">
+      <b-jumbotron header="e-Apotheke CMS Portal" lead="Welcome Back, Admin!">
         <p>Please Login to Continue</p>
       </b-jumbotron>
     </div>
