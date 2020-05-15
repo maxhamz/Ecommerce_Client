@@ -15,9 +15,7 @@
         <option value="herbal">Herbal, Supplements</option>
       </select>
       <br /><br />Image URL:
-      <!-- <input type="text" required id="edit-item-image" v-model="details.image_url" /> -->
-      <input type="file" required id="edit-item-image" multiple/>
-      <br />
+      <input type="text" required id="edit-item-image" v-model="details.image_url" />
       <br /><br />Stock:
       <input type="text" required id="edit-item-stock" v-model="details.stock" />
       <br /><br />Price:
